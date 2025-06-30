@@ -4,45 +4,50 @@ import mongoose from 'mongoose';
 import { User } from 'next-auth';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../auth/[...nextauth]/options';
+import { NextResponse } from 'next/server'; // Use this for consistency
 
-export async function GET(_request: Request) {
+interface SessionUser extends User {
+  _id: string;
+}
+
+export async function GET() {
   await dbConnect();
 
   const session = await getServerSession(authOptions);
-  const _user = session?.user as User & { _id: string };
+  const user = session?.user as SessionUser;
 
-  if (!session || !_user || !_user._id) {
-    return Response.json(
+  if (!session || !user || !user._id) {
+    return NextResponse.json(
       { success: false, message: 'Not authenticated' },
       { status: 401 }
     );
   }
 
-  const userId = new mongoose.Types.ObjectId(_user._id);
+  const userId = new mongoose.Types.ObjectId(user._id);
 
   try {
-    const user = await UserModel.aggregate([
+    const userData = await UserModel.aggregate([
       { $match: { _id: userId } },
       { $unwind: '$messages' },
       { $sort: { 'messages.createdAt': -1 } },
       { $group: { _id: '$_id', messages: { $push: '$messages' } } },
     ]).exec();
 
-    if (!user || user.length === 0) {
-      return Response.json(
-        { message: 'User not found', success: false },
+    if (!userData || userData.length === 0) {
+      return NextResponse.json(
+        { success: false, message: 'User not found' },
         { status: 404 }
       );
     }
 
-    return Response.json(
-      { messages: user[0].messages },
+    return NextResponse.json(
+      { success: true, messages: userData[0].messages },
       { status: 200 }
     );
   } catch (error) {
     console.error('An unexpected error occurred:', error);
-    return Response.json(
-      { message: 'Internal server error', success: false },
+    return NextResponse.json(
+      { success: false, message: 'Internal server error' },
       { status: 500 }
     );
   }
