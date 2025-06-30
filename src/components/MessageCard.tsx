@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import React from 'react';
 import axios, { AxiosError } from 'axios';
@@ -89,7 +89,7 @@ export function MessageCard({ message, onMessageDelete }: MessageCardProps) {
 
       <CardContent className="pt-0">
         <time
-          dateTime={message.createdAt}
+          dateTime={new Date(message.createdAt).toISOString()}
           className="block text-xs text-gray-500 italic text-right select-none"
         >
           {dayjs(message.createdAt).format('MMM D, YYYY h:mm A')}
