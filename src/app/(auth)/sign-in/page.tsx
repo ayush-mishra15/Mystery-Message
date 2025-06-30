@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import Link from "next/link"
@@ -55,7 +55,7 @@ const Page = () => {
         toast.success("Login successful!")
         router.replace("/dashboard")
       }
-    } catch (error) {
+    } catch {
       toast.error("Something went wrong.")
     } finally {
       setIsSubmitting(false)
@@ -65,8 +65,7 @@ const Page = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black flex items-center justify-center px-6 py-8">
       <div className="w-full max-w-3xl bg-gray-900 m-2.5 rounded-xl shadow-2xl z-10 flex flex-col md:flex-row overflow-hidden">
-
-{/* Left side: Info Section */}
+        {/* Left side: Info Section */}
         <motion.div
           initial={{ x: -40, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
@@ -173,9 +172,8 @@ const Page = () => {
             </Link>
           </p>
         </motion.div>
-
       </div>
-        <StarsBackground />
+      <StarsBackground />
     </div>
   )
 }

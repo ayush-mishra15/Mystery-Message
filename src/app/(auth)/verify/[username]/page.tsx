@@ -60,7 +60,7 @@ function VerifyAccount() {
               Verify Your Account
             </h1>
             <p className="text-sm text-neutral-400 mt-2">
-              We've sent a 6-digit code to your email. Enter it below to continue.
+              We&#39;ve sent a 6-digit code to your email. Enter it below to continue.
             </p>
           </div>
 
@@ -103,7 +103,7 @@ function VerifyAccount() {
           </Form>
 
           <p className="text-sm text-center text-neutral-500 mt-5">
-            Didn't see the email? Check your spam or promotions folder.
+            Didn&#39;t see the email? Check your spam or promotions folder.
           </p>
         </motion.div>
       </AnimatePresence>

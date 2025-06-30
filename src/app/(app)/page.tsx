@@ -82,7 +82,7 @@ function Page() {
               className="mt-6 text-white bg-blue-600 hover:bg-blue-700 transition duration-200"
               onClick={handleRedirect}
             >
-             Get Started
+              Get Started
             </Button>
           </motion.div>
         </section>
@@ -123,7 +123,6 @@ function Page() {
           </CarouselContent>
         </Carousel>
 
-
         {/* Who is it for? */}
         <motion.section
           className="max-w-4xl text-center mb-12"
@@ -140,7 +139,7 @@ function Page() {
             <h2 className="text-3xl font-bold text-white">Who Is It For?</h2>
           </motion.div>
           <motion.p className="text-gray-400 mb-6 text-lg px-6 md:px-0" variants={itemVariants}>
-            Whether you're a creator looking for honest feedback/Suggestion, a team leader wanting to improve,
+            Whether you&#39;re a creator looking for honest feedback/Suggestion, a team leader wanting to improve,
             or simply someone who values genuine opinions.
           </motion.p>
         </motion.section>
@@ -157,35 +156,34 @@ function Page() {
             Why Mystery Message?
           </motion.h2>
           <motion.p className="text-gray-400 mb-6" variants={itemVariants}>
-            People are often more honest when they're anonymous. Mystery Message provides a safe space to receive unfiltered, genuine thoughts that can lead to meaningful growth — whether you're a creator, a team leader, or simply someone seeking honest feedback.
+            People are often more honest when they&#39;re anonymous. Mystery Message provides a safe space to receive unfiltered, genuine thoughts that can lead to meaningful growth — whether you&#39;re a creator, a team leader, or simply someone seeking honest feedback.
           </motion.p>
-<motion.div className="grid grid-cols-1 md:grid-cols-3 gap-7 text-left text-sm md:text-base mt-14" variants={itemVariants}>
-  <div className="bg-gray-900 p-6 rounded-2xl border border-gray-700 shadow-md transition-transform duration-300 group hover:-translate-y-2 hover:shadow-xl">
-    <div className="flex items-center gap-3 mb-3">
-      <Lock className="w-5 h-5 text-emerald-400 group-hover:text-emerald-300 transition-colors duration-300" />
-      <h3 className="font-semibold text-lg text-white group-hover:text-emerald-200 transition-colors duration-300">100% Private</h3>
-    </div>
-    <p className="text-gray-400 group-hover:text-gray-100 transition-colors duration-300">No tracking, no identity. Just pure, anonymous Suggestions.</p>
-  </div>
 
-  <div className="bg-gray-900 p-6 rounded-2xl border border-gray-700 shadow-md transition-transform duration-300 group hover:-translate-y-2 hover:shadow-xl">
-    <div className="flex items-center gap-3 mb-3">
-      <Zap className="w-5 h-5 text-yellow-400 group-hover:text-yellow-300 transition-colors duration-300" />
-      <h3 className="font-semibold text-lg text-white group-hover:text-yellow-200 transition-colors duration-300">Simple & Fast</h3>
-    </div>
-    <p className="text-gray-400 group-hover:text-gray-100 transition-colors duration-300">Share your Message link, and start receiving messages instantly.</p>
-  </div>
+          <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-7 text-left text-sm md:text-base mt-14" variants={itemVariants}>
+            <div className="bg-gray-900 p-6 rounded-2xl border border-gray-700 shadow-md transition-transform duration-300 group hover:-translate-y-2 hover:shadow-xl">
+              <div className="flex items-center gap-3 mb-3">
+                <Lock className="w-5 h-5 text-emerald-400 group-hover:text-emerald-300 transition-colors duration-300" />
+                <h3 className="font-semibold text-lg text-white group-hover:text-emerald-200 transition-colors duration-300">100% Private</h3>
+              </div>
+              <p className="text-gray-400 group-hover:text-gray-100 transition-colors duration-300">No tracking, no identity. Just pure, anonymous Suggestions.</p>
+            </div>
 
-  <div className="bg-gray-900 p-6 rounded-2xl border border-gray-700 shadow-md transition-transform duration-300 group hover:-translate-y-2 hover:shadow-xl">
-    <div className="flex items-center gap-3 mb-3">
-      <BadgeDollarSign className="w-5 h-5 text-indigo-400 group-hover:text-indigo-300 transition-colors duration-300" />
-      <h3 className="font-semibold text-lg text-white group-hover:text-indigo-200 transition-colors duration-300">Completely Free</h3>
-    </div>
-    <p className="text-gray-400 group-hover:text-gray-100 transition-colors duration-300">No subscriptions or hidden charges. Built for everyone.</p>
-  </div>
-</motion.div>
+            <div className="bg-gray-900 p-6 rounded-2xl border border-gray-700 shadow-md transition-transform duration-300 group hover:-translate-y-2 hover:shadow-xl">
+              <div className="flex items-center gap-3 mb-3">
+                <Zap className="w-5 h-5 text-yellow-400 group-hover:text-yellow-300 transition-colors duration-300" />
+                <h3 className="font-semibold text-lg text-white group-hover:text-yellow-200 transition-colors duration-300">Simple & Fast</h3>
+              </div>
+              <p className="text-gray-400 group-hover:text-gray-100 transition-colors duration-300">Share your Message link, and start receiving messages instantly.</p>
+            </div>
 
-
+            <div className="bg-gray-900 p-6 rounded-2xl border border-gray-700 shadow-md transition-transform duration-300 group hover:-translate-y-2 hover:shadow-xl">
+              <div className="flex items-center gap-3 mb-3">
+                <BadgeDollarSign className="w-5 h-5 text-indigo-400 group-hover:text-indigo-300 transition-colors duration-300" />
+                <h3 className="font-semibold text-lg text-white group-hover:text-indigo-200 transition-colors duration-300">Completely Free</h3>
+              </div>
+              <p className="text-gray-400 group-hover:text-gray-100 transition-colors duration-300">No subscriptions or hidden charges. Built for everyone.</p>
+            </div>
+          </motion.div>
         </motion.section>
       </main>
 

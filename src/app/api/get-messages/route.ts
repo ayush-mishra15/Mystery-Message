@@ -5,18 +5,21 @@ import { User } from 'next-auth';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../auth/[...nextauth]/options';
 
-export async function GET(request: Request) {
+export async function GET(_request: Request) {
   await dbConnect();
-  const session = await getServerSession(authOptions);
-  const _user: User = session?.user;
 
-  if (!session || !_user) {
+  const session = await getServerSession(authOptions);
+  const _user = session?.user as User & { _id: string };
+
+  if (!session || !_user || !_user._id) {
     return Response.json(
       { success: false, message: 'Not authenticated' },
       { status: 401 }
     );
   }
+
   const userId = new mongoose.Types.ObjectId(_user._id);
+
   try {
     const user = await UserModel.aggregate([
       { $match: { _id: userId } },
@@ -34,9 +37,7 @@ export async function GET(request: Request) {
 
     return Response.json(
       { messages: user[0].messages },
-      {
-        status: 200,
-      }
+      { status: 200 }
     );
   } catch (error) {
     console.error('An unexpected error occurred:', error);
