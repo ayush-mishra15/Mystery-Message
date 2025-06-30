@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useSession, signOut } from 'next-auth/react'
 import { Button } from './ui/button'
 import { User } from 'next-auth'
-import { LogIn, LogOut, LayoutDashboard } from 'lucide-react'
+import { LogIn, LogOut } from 'lucide-react'
 import Image from 'next/image'
 
 function Navbar() {
