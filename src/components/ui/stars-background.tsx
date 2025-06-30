@@ -4,7 +4,6 @@ import React, {
   useState,
   useEffect,
   useRef,
-  RefObject,
   useCallback,
 } from "react";
 
@@ -26,7 +25,7 @@ interface StarBackgroundProps {
 }
 
 export const StarsBackground: React.FC<StarBackgroundProps> = ({
-  starDensity = 0.00020, // ⭐ Increased density
+  starDensity = 0.00020,
   allStarsTwinkle = true,
   twinkleProbability = 0.7,
   minTwinkleSpeed = 0.5,
@@ -34,7 +33,7 @@ export const StarsBackground: React.FC<StarBackgroundProps> = ({
   className,
 }) => {
   const [stars, setStars] = useState<StarProps[]>([]);
-const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   const generateStars = useCallback(
     (width: number, height: number): StarProps[] => {
@@ -46,12 +45,10 @@ const canvasRef = useRef<HTMLCanvasElement | null>(null);
         return {
           x: Math.random() * width,
           y: Math.random() * height,
-          radius: Math.random() * 0.6 + 0.4, // New size: 0.4 to 1.0
-           // 🌟 Increased size
+          radius: Math.random() * 0.6 + 0.4,
           opacity: Math.random() * 0.5 + 0.5,
           twinkleSpeed: shouldTwinkle
-            ? minTwinkleSpeed +
-              Math.random() * (maxTwinkleSpeed - minTwinkleSpeed)
+            ? minTwinkleSpeed + Math.random() * (maxTwinkleSpeed - minTwinkleSpeed)
             : null,
         };
       });
@@ -67,29 +64,27 @@ const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
     const updateStars = () => {
-      if (canvasRef.current) {
-        const canvas = canvasRef.current;
-        const ctx = canvas.getContext("2d");
-        if (!ctx) return;
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
 
-        const { width, height } = canvas.getBoundingClientRect();
-        canvas.width = width;
-        canvas.height = height;
-        setStars(generateStars(width, height));
-      }
+      const { width, height } = canvas.getBoundingClientRect();
+      canvas.width = width;
+      canvas.height = height;
+      setStars(generateStars(width, height));
     };
 
     updateStars();
 
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
     const resizeObserver = new ResizeObserver(updateStars);
-    if (canvasRef.current) {
-      resizeObserver.observe(canvasRef.current);
-    }
+    resizeObserver.observe(canvas);
 
     return () => {
-      if (canvasRef.current) {
-        resizeObserver.unobserve(canvasRef.current);
-      }
+      resizeObserver.unobserve(canvas);
     };
   }, [
     starDensity,
@@ -114,7 +109,7 @@ const canvasRef = useRef<HTMLCanvasElement | null>(null);
       stars.forEach((star) => {
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(200, 220, 255, ${star.opacity})`; // 💙 Soft blue stars
+        ctx.fillStyle = `rgba(200, 220, 255, ${star.opacity})`;
         ctx.fill();
 
         if (star.twinkleSpeed !== null) {

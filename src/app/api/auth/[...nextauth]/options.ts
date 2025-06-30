@@ -3,11 +3,53 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcryptjs';
 import dbConnect from '@/lib/dbConnect';
 import UserModel from '@/model/User';
+import { Document } from 'mongoose';
 
-// Define expected credentials type
+// Extend JWT and Session for custom fields
+declare module 'next-auth' {
+  interface Session {
+    user: {
+      _id: string;
+      email: string;
+      username: string;
+      isVerified: boolean;
+      isAcceptingMessages: boolean;
+    };
+  }
+
+  interface User {
+    _id: string;
+    email: string;
+    username: string;
+    isVerified: boolean;
+    isAcceptingMessages: boolean;
+  }
+}
+
+declare module 'next-auth/jwt' {
+  interface JWT {
+    _id: string;
+    email: string;
+    username: string;
+    isVerified: boolean;
+    isAcceptingMessages: boolean;
+  }
+}
+
+// Define expected credentials
 interface Credentials {
   identifier: string;
   password: string;
+}
+
+// Mongoose User Type
+interface UserDoc extends Document {
+  _id: string;
+  email: string;
+  username: string;
+  password: string;
+  isVerified: boolean;
+  isAcceptingMessages: boolean;
 }
 
 export const authOptions: NextAuthOptions = {
@@ -23,36 +65,29 @@ export const authOptions: NextAuthOptions = {
         if (!credentials) return null;
 
         const { identifier, password } = credentials as Credentials;
-
         await dbConnect();
+
         try {
           const user = await UserModel.findOne({
-            $or: [
-              { email: identifier },
-              { username: identifier },
-            ],
-          });
+            $or: [{ email: identifier }, { username: identifier }],
+          }) as unknown as UserDoc;
 
-          if (!user) {
-            throw new Error('No user found with this email or username');
-          }
-
-          if (!user.isVerified) {
-            throw new Error('Please verify your account before logging in');
-          }
+          if (!user) throw new Error('No user found with this email or username');
+          if (!user.isVerified) throw new Error('Please verify your account before logging in');
 
           const isPasswordCorrect = await bcrypt.compare(password, user.password);
+          if (!isPasswordCorrect) throw new Error('Incorrect password');
 
-          if (!isPasswordCorrect) {
-            throw new Error('Incorrect password');
-          }
-
-          return user;
-        } catch (err: unknown) {
-          if (err instanceof Error) {
-            throw new Error(err.message);
-          }
-          throw new Error('Unknown authorization error');
+          return {
+            _id: user._id.toString(),
+            email: user.email,
+            username: user.username,
+            isVerified: user.isVerified,
+            isAcceptingMessages: user.isAcceptingMessages,
+          };
+        } catch (err) {
+          if (err instanceof Error) throw new Error(err.message);
+          throw new Error('Unknown error during login');
         }
       },
     }),
@@ -60,19 +95,21 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token._id = user._id?.toString();
+        token._id = user._id;
+        token.email = user.email;
+        token.username = user.username;
         token.isVerified = user.isVerified;
         token.isAcceptingMessages = user.isAcceptingMessages;
-        token.username = user.username;
       }
       return token;
     },
     async session({ session, token }) {
-      if (token && session.user) {
-        session.user._id = token._id as string;
-        session.user.isVerified = token.isVerified as boolean;
-        session.user.isAcceptingMessages = token.isAcceptingMessages as boolean;
-        session.user.username = token.username as string;
+      if (session.user) {
+        session.user._id = token._id;
+        session.user.email = token.email;
+        session.user.username = token.username;
+        session.user.isVerified = token.isVerified;
+        session.user.isAcceptingMessages = token.isAcceptingMessages;
       }
       return session;
     },

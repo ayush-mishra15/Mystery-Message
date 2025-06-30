@@ -5,7 +5,9 @@ import UserModel from '@/model/User'
 import { User } from 'next-auth'
 import { NextResponse } from 'next/server'
 
-export async function POST(request: Request) {
+
+export async function POST(_request: Request) {
+  void _request; // suppress unused param warning
   await dbConnect()
 
   const session = await getServerSession(authOptions)
@@ -19,7 +21,7 @@ export async function POST(request: Request) {
 
   const user = session.user as User & { _id: string }
 
-  const body: { acceptMessages: boolean } = await request.json()
+  const body: { acceptMessages: boolean } = await _request.json()
   const { acceptMessages } = body
 
   try {
