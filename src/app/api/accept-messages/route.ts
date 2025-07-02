@@ -41,13 +41,16 @@ export async function GET() {
       },
       { status: 200 }
     );
-  } catch (error: any) {
-    console.error('Error fetching message setting:', error.message || error);
-    return NextResponse.json(
-      { success: false, message: 'Error fetching message setting' },
-      { status: 500 }
-    );
-  }
+  } catch (error: unknown) {
+      console.error(
+        'Error fetching message setting:',
+        error instanceof Error ? error.message : error
+      );
+      return NextResponse.json(
+        { success: false, message: 'Error fetching message setting' },
+        { status: 500 }
+      );
+}
 }
 
 // ✅ POST: update user's message setting
