@@ -95,11 +95,15 @@ export async function POST(request: Request) {
       },
       { status: 200 }
     );
-  } catch (error: any) {
-    console.error('Error updating message acceptance status:', error.message || error);
-    return NextResponse.json(
-      { success: false, message: 'Error updating message acceptance status' },
-      { status: 500 }
-    );
+    }catch (error: unknown) {
+      console.error(
+        'Error updating message acceptance status:',
+        error instanceof Error ? error.message : error
+      );
+      return NextResponse.json(
+        { success: false, message: 'Error updating message acceptance status' },
+        { status: 500 }
+      );
   }
+
 }
