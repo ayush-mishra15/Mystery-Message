@@ -88,7 +88,7 @@ const Page = () => {
           className="md:w-3/5 p-10 space-y-8"
         >
           <h2 className="text-4xl font-bold text-gray-300 tracking-tight">
-              True Feedback
+              Mystery Message
           </h2>
           <p className="text-gray-300 text-lg">
             Create your account to start sending anonymous messages!

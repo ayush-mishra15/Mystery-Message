@@ -15,6 +15,8 @@ import { Switch } from "@/components/ui/switch"
 import { Separator } from "@/components/ui/separator"
 import { Loader2, RefreshCcw, Link2 } from "lucide-react"
 import { MessageCard } from "@/components/MessageCard"
+import { StarsBackground } from "@/components/ui/stars-background"
+import { motion } from "framer-motion"
 
 function Dashboard() {
   const [messages, setMessages] = useState<Message[]>([])
@@ -37,7 +39,7 @@ function Dashboard() {
     setIsSwitchLoading(true)
     try {
       const response = await axios.get<ApiResponse>("/api/accept-messages")
-      setValue("acceptMessages", response.data.isAcceptingMessage ?? false)
+      setValue("acceptMessages", response.data.isAcceptingMessages ?? false)
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>
       toast.error(axiosError.response?.data.message || "Failed to fetch message settings")
@@ -101,8 +103,17 @@ function Dashboard() {
   }
 
   return (
-    <div className="bg-gradient-to-br from-gray-950 via-gray-800 to-gray-950 min-h-screen py-28 px-5 md:px-8">
-      <div className="max-w-6xl mx-auto bg-gray-300 rounded-xl shadow-md p-6 md:p-10 space-y-8">
+    <div className="relative bg-gradient-to-br from-black via-gray-800 to-black min-h-screen py-28 px-5 md:px-8">
+      <div className="absolute inset-0 z-0">
+        <StarsBackground />
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="relative z-10 max-w-6xl mx-auto bg-gray-300 rounded-xl shadow-md p-6 md:p-10 space-y-8"
+      >
         <div className="flex justify-between items-center">
           <h1 className="text-3xl font-bold text-gray-800">📬 User Dashboard</h1>
           <Button
@@ -175,7 +186,7 @@ function Dashboard() {
             )}
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   )
 }

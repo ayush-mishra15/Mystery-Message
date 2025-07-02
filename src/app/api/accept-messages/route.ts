@@ -9,6 +9,48 @@ interface SessionUser extends User {
   _id: string;
 }
 
+// ✅ GET: fetch current user's message setting
+export async function GET() {
+  await dbConnect();
+
+  const session = await getServerSession(authOptions);
+
+  if (!session || !session.user) {
+    return NextResponse.json(
+      { success: false, message: 'Not authenticated' },
+      { status: 401 }
+    );
+  }
+
+  const user = session.user as SessionUser;
+
+  try {
+    const foundUser = await UserModel.findById(user._id);
+
+    if (!foundUser) {
+      return NextResponse.json(
+        { success: false, message: 'User not found' },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(
+      {
+        success: true,
+        isAcceptingMessages: foundUser.isAcceptingMessages,
+      },
+      { status: 200 }
+    );
+  } catch (error: any) {
+    console.error('Error fetching message setting:', error.message || error);
+    return NextResponse.json(
+      { success: false, message: 'Error fetching message setting' },
+      { status: 500 }
+    );
+  }
+}
+
+// ✅ POST: update user's message setting
 export async function POST(request: Request) {
   await dbConnect();
 
@@ -28,7 +70,7 @@ export async function POST(request: Request) {
   try {
     const updatedUser = await UserModel.findByIdAndUpdate(
       user._id,
-      { isAcceptingMessage: acceptMessages },
+      { isAcceptingMessages: acceptMessages }, // ✅ correct spelling
       { new: true }
     );
 
@@ -50,8 +92,8 @@ export async function POST(request: Request) {
       },
       { status: 200 }
     );
-  } catch (error) {
-    console.error('Error updating message acceptance status:', error);
+  } catch (error: any) {
+    console.error('Error updating message acceptance status:', error.message || error);
     return NextResponse.json(
       { success: false, message: 'Error updating message acceptance status' },
       { status: 500 }

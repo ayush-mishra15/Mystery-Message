@@ -25,6 +25,7 @@ import { useParams } from 'next/navigation';
 import { messageSchema } from '@/schemas/messageSchema';
 
 import { motion, AnimatePresence } from 'framer-motion';
+import { StarsBackground } from '@/components/ui/stars-background';
 
 const specialChar = '||';
 const initialSuggestedMessages = [
@@ -39,6 +40,7 @@ export default function SendMessage() {
 
   const form = useForm<z.infer<typeof messageSchema>>({
     resolver: zodResolver(messageSchema),
+    defaultValues: { content: '' },
   });
 
   const messageContent = form.watch('content');
@@ -48,7 +50,7 @@ export default function SendMessage() {
   const [suggestedMessages, setSuggestedMessages] = useState<string[]>(initialSuggestedMessages);
 
   const handleMessageClick = (message: string) => {
-    form.setValue('content', message);
+    form.setValue('content', message, { shouldDirty: true });
   };
 
   const fetchSuggestedMessages = async () => {
@@ -92,32 +94,37 @@ export default function SendMessage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-950 via-gray-800 to-gray-950 p-10 py-11">
+    <div className="relative min-h-screen bg-gradient-to-br from-black via-gray-800 to-black p-10 sm:p-10 overflow-hidden">
+      <div className="absolute inset-0 z-0">
+        <StarsBackground />
+      </div>
+
       <motion.div
         initial={{ y: 30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="container mx-auto p-8 bg-gray-300 rounded-lg mt-6 max-w-4xl shadow-lg"
-      >        <motion.h1
+        className="relative z-10 mx-auto w-full max-w-3xl bg-white/90 backdrop-blur-md rounded-2xl shadow-2xl p-6 mt-6 mb-6 sm:p-10 space-y-9"
+      >
+        <motion.h1
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.4 }}
-          className="text-4xl font-bold mb-4 text-center text-gray-800"
+          className="text-4xl font-bold text-center text-gray-900"
         >
-          Send a Secret Message
+          Share What’s on Your Mind
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-center text-gray-600 max-w-2xl mx-auto mb-6"
+          className="text-center text-gray-600 text-base sm:text-lg"
         >
-          ✉️ Have something to say? Ask a question, share a thought, or just say hi — anonymously!
+          ✉️ Ask a question, share a thought, or just say hi — completely anonymously!
         </motion.p>
 
-        <div className="bg-gray-100 p-4 rounded-md mb-6 text-sm text-gray-700 shadow-sm border-l-4 border-indigo-500">
-          <p><strong>💡 Tip:</strong> Good messages are respectful, open-ended, or fun to answer!</p>
+        <div className="bg-sky-100 border-l-4 border-sky-400 p-4 rounded-md shadow-sm text-sm text-gray-800">
+          💡 <strong>Tip:</strong> Make your message respectful, thoughtful, or fun!
         </div>
 
         <Form {...form}>
@@ -127,14 +134,14 @@ export default function SendMessage() {
               name="content"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-gray-700 font-medium text-lg">
-                    Send your Message to <span className="text-indigo-600 font-semibold">@{username}</span>
+                  <FormLabel className="text-gray-800 text-base font-medium">
+                    Message to <span className="text-sky-600">@{username}</span>
                   </FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="Write your anonymous message here"
-                      className="resize-none border border-gray-300 bg-white text-gray-900 rounded-md shadow-sm
-                        focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition duration-200"
+                      placeholder="Write your anonymous message here..."
+                      className="resize-none border border-gray-300 bg-white text-gray-900 rounded-lg shadow-sm p-3 
+                      focus:outline-none focus:ring-2 focus:ring-sky-500 transition min-h-[100px]"
                       {...field}
                     />
                   </FormControl>
@@ -143,45 +150,47 @@ export default function SendMessage() {
               )}
             />
             <div className="flex justify-center">
-              {isLoading ? (
-                <Button disabled className="bg-indigo-500 text-white px-8 py-3 rounded-md shadow-md">
-                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                  Please wait
-                </Button>
-              ) : (
-                <Button
-                  type="submit"
-                  disabled={isLoading || !messageContent}
-                  className="bg-indigo-500 hover:bg-indigo-600 disabled:opacity-50 px-8 py-3 rounded-md shadow-md text-white transition"
-                >
-                  Send It
-                </Button>
-              )}
+              <Button
+                type="submit"
+                disabled={isLoading || !messageContent}
+                className="bg-sky-500 hover:bg-sky-600 px-6 py-3 text-white rounded-md shadow-md disabled:opacity-50"
+              >
+                {isLoading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  'Send Message'
+                )}
+              </Button>
             </div>
           </form>
         </Form>
 
-        <div className="text-sm text-gray-500 text-center italic mt-6">
+        <p className="text-sm text-center text-gray-500 italic">
           🔒 Your identity is 100% private — we never store who sends the message.
-        </div>
+        </p>
 
-        <div className="space-y-6 my-10">
-          <div className="flex items-center justify-between">
+        <div className="space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
             <Button
               onClick={fetchSuggestedMessages}
               disabled={isSuggestLoading}
-              className="bg-indigo-500 hover:bg-indigo-600 disabled:opacity-50 px-5 py-2 rounded-md shadow-sm text-white transition"
+              className="bg-sky-500 hover:bg-sky-600 text-white px-5 py-2 rounded-md shadow-sm disabled:opacity-50"
             >
               {isSuggestLoading ? 'Loading...' : 'Suggest Messages'}
             </Button>
-            <p className="text-gray-600 italic ml-10 text-sm">Click on any message below to select it.</p>
+            <p className="text-gray-600 text-sm italic text-center sm:text-right">
+              Click a suggestion to auto-fill the message box.
+            </p>
           </div>
 
-          <Card className="bg-white border border-gray-200 rounded-md shadow-sm">
+          <Card className="bg-gray-100 border border-gray-200 rounded-lg shadow-sm">
             <CardHeader>
-              <h3 className="text-xl font-semibold text-gray-800">Messages</h3>
+              <h3 className="text-lg font-semibold text-gray-800">Suggestions</h3>
             </CardHeader>
-            <CardContent className="flex flex-col space-y-4">
+            <CardContent className="space-y-3">
               <AnimatePresence>
                 {suggestedMessages.length === 0 ? (
                   <motion.p
@@ -189,10 +198,9 @@ export default function SendMessage() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="text-gray-500 italic text-center py-4"
+                    className="text-center text-gray-500 italic py-4"
                   >
-                    No suggestions yet. <br />
-                    <span className="text-indigo-600 font-semibold">Feeling stuck?</span> Try clicking the button above to get ideas.
+                    No suggestions yet. Click above to generate some ideas!
                   </motion.p>
                 ) : (
                   suggestedMessages.map((message, index) => (
@@ -200,16 +208,18 @@ export default function SendMessage() {
                       key={`${message}-${index}`}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.3, delay: index * 0.1 }}
+                      transition={{ duration: 0.3, delay: index * 0.05 }}
                     >
-                      <Button
-                        variant="outline"
-                        className="w-full text-left text-gray-700 hover:bg-indigo-100 hover:text-indigo-700 rounded-md px-4 py-2
-                          transition transform hover:scale-105 shadow-sm"
+                      <button
+                        type="button"
                         onClick={() => handleMessageClick(message)}
+                        className="w-full text-left md:text-center bg-white text-gray-800 hover:bg-sky-100 hover:text-sky-700 
+                        rounded-lg px-4 py-3 text-sm font-medium shadow transition-all 
+                        whitespace-pre-wrap break-words"
+                        style={{ wordBreak: 'break-word' }}
                       >
                         {message}
-                      </Button>
+                      </button>
                     </motion.div>
                   ))
                 )}
@@ -218,14 +228,12 @@ export default function SendMessage() {
           </Card>
         </div>
 
-        <Separator className="my-8 border-gray-300" />
+        <Separator className="border-t border-gray-300 my-8" />
 
-        <div className="text-center">
-          <p className="mb-4 text-gray-700 font-medium text-lg">Get Your Message Board</p>
+        <div className="text-center space-y-4">
+          <p className="text-gray-800 font-medium text-lg">Get Your Own Message Board</p>
           <Link href="/">
-            <Button
-              className="bg-indigo-600 hover:bg-indigo-700 px-8 py-3 rounded-md shadow-md text-white transition"
-            >
+            <Button className="bg-sky-500 hover:bg-sky-600 px-6 py-3 rounded-md shadow-md text-white transition">
               Create Your Account
             </Button>
           </Link>

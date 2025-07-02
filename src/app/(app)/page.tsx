@@ -1,96 +1,98 @@
-"use client"
+  "use client"
 
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/ui/carousel"
-import Autoplay from "embla-carousel-autoplay"
-import messages from "@/messages.json"
-import { Mail, Users } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { useRouter } from "next/navigation"
-import { motion } from "framer-motion"
-import { Lock, Zap, BadgeDollarSign } from "lucide-react"
+  import {
+    Card,
+    CardContent,
+    CardHeader,
+    CardTitle,
+  } from "@/components/ui/card"
+  import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+  } from "@/components/ui/carousel"
+  import Autoplay from "embla-carousel-autoplay"
+  import messages from "@/messages.json"
+  import { Mail, Users } from "lucide-react"
+  import { Button } from "@/components/ui/button"
+  import { useRouter } from "next/navigation"
+  import { motion } from "framer-motion"
+  import { Lock, Zap, BadgeDollarSign } from "lucide-react"
 
-// Animation variants
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i = 1) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.2, duration: 0.6 },
-  }),
-}
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.2 },
-  },
-}
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
-}
-
-function Page() {
-  const router = useRouter()
-
-  const handleRedirect = () => {
-    router.push("/sign-up")
+  // Animation variants
+  const fadeUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: (i = 1) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: i * 0.2, duration: 0.6 },
+    }),
   }
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.2 },
+    },
+  }
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+  }
+
+  function Page() {
+    const router = useRouter()
+
+    const handleRedirect = () => {
+      router.push("/sign-up")
+    }
 
   return (
     <>
       <main className="min-h-screen bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950 text-white flex flex-col items-center px-7 md:px-24 py-40">
         {/* Hero Section */}
-        <section className="text-center mb-16 max-w-4xl">
-          <motion.h1
-            className="text-4xl md:text-5xl font-extrabold leading-tight bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent animate-gradient-x"
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            custom={0}
-          >
-            Dive into the World of Anonymous Message
-          </motion.h1>
-
-          <motion.p
-            className="mt-4 text-lg text-gray-300 max-w-xl mx-auto"
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            custom={1}
-          >
-            Mystery Message – Where your identity stays hidden, but your voice is heard.
-          </motion.p>
-
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            custom={2}
-          >
-            <Button
-              className="mt-6 text-white bg-blue-600 hover:bg-blue-700 transition duration-200"
-              onClick={handleRedirect}
+        <section className="text-center mb-24 max-w-4xl mx-auto px-4">
+            <motion.h1
+              className="text-4xl md:text-6xl font-extrabold leading-tight bg-gradient-to-tl md:bg-gradient-to-b from-white via-gray-400 to-white bg-clip-text text-transparent"
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              custom={0}
             >
-              Get Started
-            </Button>
-          </motion.div>
-        </section>
+              Step Into the World of Anonymous Messages
+            </motion.h1>
+
+            <motion.p
+              className="mt-6 text-lg md:text-xl text-gray-400 max-w-2xl mx-auto"
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              custom={1}
+            >
+              Mystery Message – Where your identity remains hidden, but your words leave an impact.
+            </motion.p>
+
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              custom={2}
+            >
+                <Button
+                  className="mt-8 px-7 py-3.5 rounded-full text-base font-semibold bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 text-white shadow-xl hover:shadow-pink-500/40 transition-all duration-300 ease-in-out hover:scale-[1.03] active:scale-95 active:shadow-inner"
+                  onClick={handleRedirect}
+                >
+                  Get Started
+                </Button>
+
+            </motion.div>
+          </section>
+
 
         {/* Carousel Section */}
         <Carousel
           plugins={[Autoplay({ delay: 3500 })]}
-          className="w-full max-w-md md:max-w-2xl lg:max-w-3xl mb-16"
+          className="w-full max-w-md md:max-w-2xl ml-4 lg:max-w-3xl mb-16"
         >
           <CarouselContent>
             {messages.map((message, index) => (

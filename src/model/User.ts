@@ -27,7 +27,7 @@ export interface User extends Document{ // here we define typescript  #yaha humn
     verifyCode: string;
     verifyCodeExpiry: Date;
     isVerified: boolean;
-    isAcceptingMessage: boolean;
+    isAcceptingMessages: boolean;
     messages: Message[]
 }
 
@@ -67,7 +67,7 @@ const UserSchema: Schema<User> = new mongoose.Schema({
         default: false,
     },
 
-    isAcceptingMessage: {
+    isAcceptingMessages: {
         type: Boolean,
         default: true,
     },

@@ -72,7 +72,7 @@ export function MessageCard({ message, onMessageDelete }: MessageCardProps) {
               </AlertDialogDescription>
             </AlertDialogHeader>
 
-            <AlertDialogFooter className="space-x-3">
+            <AlertDialogFooter>
               <AlertDialogCancel className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100 transition">
                 Cancel
               </AlertDialogCancel>
