@@ -29,56 +29,50 @@ type MessageCardProps = {
 export function MessageCard({ message, onMessageDelete }: MessageCardProps) {
   const handleDeleteConfirm = async () => {
     try {
-      const response = await axios.delete<ApiResponse>(
-        `/api/delete-message/${message._id}`
-      );
+      const response = await axios.delete<ApiResponse>(`/api/delete-message/${message._id}`);
       toast.success(response.data.message);
       onMessageDelete(message._id as string);
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
       toast.error('Error', {
-        description:
-          axiosError.response?.data.message ?? 'Failed to delete message',
+        description: axiosError.response?.data.message ?? 'Failed to delete message',
       });
     }
   };
 
   return (
-    <Card className="card-bordered rounded-md shadow-sm hover:shadow-lg transition-shadow duration-300">
+  <Card className="rounded-xl bg-gray-950 border border-gray-700 transition duration-300 hover:bg-black hover:ring-1 hover:ring-gray-500/50 hover:shadow-[0_0_10px_1px_rgba(13,148,136,0.3)]">
       <CardHeader className="flex justify-between items-start gap-4">
-        <CardTitle className="text-gray-900 text-base font-medium leading-snug flex-1 break-words">
+        <CardTitle className="text-gray-100 text-base font-medium leading-snug flex-1 break-words">
           {message.content}
         </CardTitle>
 
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button
-              variant="ghost"
-              className="p-1 rounded-md text-red-600 hover:bg-red-100 transition shadow-sm hover:shadow-md"
+            <button
               aria-label="Delete message"
-              size="icon"
+              className="text-red-500 hover:text-red-400 bg-gray-900 border border-gray-700 p-2 rounded-md hover:bg-gray-700 transition-all shadow-sm"
             >
-              <Trash2 className="w-5 h-5" />
-            </Button>
+              <Trash2 className="w-4 h-4" />
+            </button>
           </AlertDialogTrigger>
 
-          <AlertDialogContent>
+          <AlertDialogContent className="bg-gray-950 border border-gray-700 text-gray-200">
             <AlertDialogHeader>
-              <AlertDialogTitle className="text-lg font-semibold">
+              <AlertDialogTitle className="text-lg font-semibold text-white">
                 Confirm Delete
               </AlertDialogTitle>
-              <AlertDialogDescription className="mt-1 text-gray-700">
+              <AlertDialogDescription className="text-gray-400 mt-1">
                 This message will be permanently deleted and cannot be recovered.
               </AlertDialogDescription>
             </AlertDialogHeader>
-
             <AlertDialogFooter>
-              <AlertDialogCancel className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100 transition">
+              <AlertDialogCancel className="bg-gray-800 text-gray-300 hover:bg-gray-700 transition">
                 Cancel
               </AlertDialogCancel>
               <AlertDialogAction
                 onClick={handleDeleteConfirm}
-                className="px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700 transition"
+                className="bg-red-600 text-white hover:bg-red-700 transition"
               >
                 Delete
               </AlertDialogAction>

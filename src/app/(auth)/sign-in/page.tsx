@@ -64,7 +64,7 @@ const Page = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black flex items-center justify-center px-6 py-8">
-      <div className="w-full max-w-3xl bg-gray-900 m-2.5 rounded-xl shadow-2xl z-10 flex flex-col md:flex-row overflow-hidden">
+      <div className="w-full max-w-3xl bg-gray-950/70 border border-gray-800 m-2.5 rounded-xl shadow-2xl z-10 flex flex-col md:flex-row overflow-hidden">
         {/* Left side: Info Section */}
         <motion.div
           initial={{ x: -40, opacity: 0 }}
@@ -72,12 +72,12 @@ const Page = () => {
           transition={{ delay: 0.2, duration: 0.6 }}
           className="hidden md:flex md:w-2/5 relative items-center justify-center p-8 text-gray-200"
           style={{
-            backgroundImage: "url('/images/mount.jpg')",
+            backgroundImage: "url('/images/space.jpeg')",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
         >
-          <div className="absolute inset-0 bg-black/30"></div>
+          <div className="absolute inset-0 bg-black/40"></div>
           <div className="relative z-10 text-center space-y-3 max-w-xs">
             <h2 className="text-3xl font-bold text-gray-200">Welcome Back!</h2>
             <p className="text-base leading-relaxed text-gray-300">

@@ -103,7 +103,7 @@ function Dashboard() {
   }
 
   return (
-    <div className="relative bg-gradient-to-br from-black via-gray-800 to-black min-h-screen py-28 px-5 md:px-8">
+    <div className="relative bg-gradient-to-br from-black via-gray-900 to-black min-h-screen py-28 px-5 md:px-8">
       <div className="absolute inset-0 z-0">
         <StarsBackground />
       </div>
@@ -112,18 +112,17 @@ function Dashboard() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="relative z-10 max-w-6xl mx-auto bg-gray-300 rounded-xl shadow-md p-6 md:p-10 space-y-8"
+        className="relative z-10 max-w-6xl mx-auto bg-gray-950/70 border border-gray-700 rounded-xl shadow-xl p-6 md:p-10 space-y-8"
       >
         <div className="flex justify-between items-center">
-          <h1 className="text-3xl font-bold text-gray-800">📬 User Dashboard</h1>
+          <h1 className="text-3xl font-bold text-white">📬 User Dashboard</h1>
           <Button
-            variant="outline"
             onClick={(e) => {
               e.preventDefault()
               fetchMessages(true)
             }}
             disabled={isLoading}
-            className="flex gap-2 items-center"
+            className="flex gap-2 items-center bg-teal-700 hover:bg-teal-800 text-white px-4 py-2 rounded-md shadow-md transition-all duration-300"
           >
             {isLoading ? (
               <Loader2 className="h-4 w-4 animate-spin" />
@@ -138,7 +137,7 @@ function Dashboard() {
 
         {/* Profile Link */}
         <div className="space-y-2">
-          <label className="text-gray-700 font-medium flex items-center gap-2">
+          <label className="text-gray-300 font-medium flex items-center gap-2">
             <Link2 className="h-4 w-4" />
             Your Profile Link
           </label>
@@ -147,31 +146,39 @@ function Dashboard() {
               type="text"
               value={profileUrl}
               disabled
-              className="w-full p-2 rounded border bg-gray-50 text-gray-700 text-sm"
+              className="w-full p-2 rounded border border-gray-700 bg-gray-800 text-gray-200 text-sm"
             />
-            <Button onClick={copyToClipboard}>Copy</Button>
+            <Button
+              onClick={copyToClipboard}
+              className="bg-teal-700 hover:bg-teal-800 text-white px-4 py-2 rounded-md shadow"
+            >
+              Copy
+            </Button>
           </div>
         </div>
 
         {/* Accept Messages Switch */}
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center justify-between bg-gray-900 border border-gray-800 rounded-lg px-4 py-3">
+          <label className="text-gray-300 font-medium text-sm md:text-base">
+            Accept Messages: {" "}
+            <span className={`font-semibold ${acceptMessages ? "text-emerald-400" : "text-red-400"}`}>
+              {acceptMessages ? "On" : "Off"}
+            </span>
+          </label>
           <Switch
             {...register("acceptMessages")}
             checked={acceptMessages}
             onCheckedChange={handleSwitchChange}
             disabled={isSwitchLoading}
+            className={`scale-90 sm:scale-100 ${acceptMessages ? "data-[state=checked]:bg-emerald-500" : "data-[state=unchecked]:bg-gray-500"}`}
           />
-          <span className="text-gray-700 font-medium">
-            Accept Messages:{" "}
-            <span className="font-semibold">{acceptMessages ? "On" : "Off"}</span>
-          </span>
         </div>
 
         <Separator className="my-4" />
 
         {/* Messages Section */}
         <div>
-          <h2 className="text-xl font-semibold text-gray-800 mb-4">Your Messages</h2>
+          <h2 className="text-xl font-semibold text-white mb-4">Your Messages</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {messages.length > 0 ? (
               messages.map((message) => (
@@ -191,4 +198,4 @@ function Dashboard() {
   )
 }
 
-export default Dashboard
+export default Dashboard;

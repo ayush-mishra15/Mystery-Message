@@ -103,13 +103,13 @@ export default function SendMessage() {
         initial={{ y: 30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="relative z-10 mx-auto w-full max-w-3xl bg-white/90 backdrop-blur-md rounded-2xl shadow-2xl p-6 mt-6 mb-6 sm:p-10 space-y-9"
+        className="relative z-10 mx-auto w-full max-w-3xl bg-gray-950/70 backdrop-blur-md rounded-2xl shadow-2xl p-6 mt-6 mb-6 sm:p-10 space-y-9 border border-gray-700"
       >
         <motion.h1
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.4 }}
-          className="text-4xl font-bold text-center text-gray-900"
+          className="text-4xl font-bold text-center text-white"
         >
           Share What’s on Your Mind
         </motion.h1>
@@ -118,12 +118,12 @@ export default function SendMessage() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-center text-gray-600 text-base sm:text-lg"
+          className="text-center text-gray-400 text-base sm:text-lg"
         >
           ✉️ Ask a question, share a thought, or just say hi — completely anonymously!
         </motion.p>
 
-        <div className="bg-sky-100 border-l-4 border-sky-400 p-4 rounded-md shadow-sm text-sm text-gray-800">
+        <div className="bg-teal-900/20 border-l-4 border-teal-700 p-4 rounded-md shadow-sm text-sm text-teal-400">
           💡 <strong>Tip:</strong> Make your message respectful, thoughtful, or fun!
         </div>
 
@@ -134,18 +134,18 @@ export default function SendMessage() {
               name="content"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-gray-800 text-base font-medium">
-                    Message to <span className="text-sky-600">@{username}</span>
+                  <FormLabel className="text-teal-400 text-base font-medium">
+                    Message to <span className="text-teal-500">@{username}</span>
                   </FormLabel>
                   <FormControl>
                     <Textarea
                       placeholder="Write your anonymous message here..."
-                      className="resize-none border border-gray-300 bg-white text-gray-900 rounded-lg shadow-sm p-3 
-                      focus:outline-none focus:ring-2 focus:ring-sky-500 transition min-h-[100px]"
+                      className="resize-none border border-gray-700 bg-gray-900 text-gray-200 rounded-lg shadow-sm p-3 
+                      focus:outline-none focus:ring-2 focus:ring-teal-700 transition min-h-[100px]"
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage className="text-red-600 mt-1" />
+                  <FormMessage className="text-red-500 mt-1" />
                 </FormItem>
               )}
             />
@@ -153,7 +153,7 @@ export default function SendMessage() {
               <Button
                 type="submit"
                 disabled={isLoading || !messageContent}
-                className="bg-sky-500 hover:bg-sky-600 px-6 py-3 text-white rounded-md shadow-md disabled:opacity-50"
+                className="bg-teal-700 hover:bg-teal-600 px-6 py-3 text-white rounded-md shadow-md disabled:opacity-50"
               >
                 {isLoading ? (
                   <>
@@ -177,18 +177,18 @@ export default function SendMessage() {
             <Button
               onClick={fetchSuggestedMessages}
               disabled={isSuggestLoading}
-              className="bg-sky-500 hover:bg-sky-600 text-white px-5 py-2 rounded-md shadow-sm disabled:opacity-50"
+              className="bg-teal-700 hover:bg-teal-800 text-white px-5 py-2 rounded-md shadow-sm disabled:opacity-50"
             >
               {isSuggestLoading ? 'Loading...' : 'Suggest Messages'}
             </Button>
-            <p className="text-gray-600 text-sm italic text-center sm:text-right">
+            <p className="text-gray-400 text-sm italic text-center sm:text-right">
               Click a suggestion to auto-fill the message box.
             </p>
           </div>
 
-          <Card className="bg-gray-100 border border-gray-200 rounded-lg shadow-sm">
+          <Card className="bg-gray-900 border border-gray-700 rounded-lg shadow-sm">
             <CardHeader>
-              <h3 className="text-lg font-semibold text-gray-800">Suggestions</h3>
+              <h3 className="text-lg font-semibold text-white">Suggestions</h3>
             </CardHeader>
             <CardContent className="space-y-3">
               <AnimatePresence>
@@ -210,16 +210,19 @@ export default function SendMessage() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3, delay: index * 0.05 }}
                     >
-                      <button
-                        type="button"
-                        onClick={() => handleMessageClick(message)}
-                        className="w-full text-left md:text-center bg-white text-gray-800 hover:bg-sky-100 hover:text-sky-700 
-                        rounded-lg px-4 py-3 text-sm font-medium shadow transition-all 
+                     <button
+                      type="button"
+                      onClick={() => handleMessageClick(message)}
+                      className="w-full text-left md:text-center bg-gray-800 text-gray-200 
+                        hover:bg-teal-800/30 hover:text-teal-400 
+                        hover:shadow-[0_0_7px_#14b8a6] 
+                        rounded-lg px-4 py-3 text-sm font-medium transition-all 
                         whitespace-pre-wrap break-words"
-                        style={{ wordBreak: 'break-word' }}
-                      >
-                        {message}
-                      </button>
+                      style={{ wordBreak: 'break-word' }}
+                    >
+                      {message}
+                    </button>
+
                     </motion.div>
                   ))
                 )}
@@ -228,12 +231,12 @@ export default function SendMessage() {
           </Card>
         </div>
 
-        <Separator className="border-t border-gray-300 my-8" />
+        <Separator className="border-t border-gray-700 my-8" />
 
         <div className="text-center space-y-4">
-          <p className="text-gray-800 font-medium text-lg">Get Your Own Message Board</p>
+          <p className="text-white font-medium text-lg">Get Your Own Message Board</p>
           <Link href="/">
-            <Button className="bg-sky-500 hover:bg-sky-600 px-6 py-3 rounded-md shadow-md text-white transition">
+            <Button className="bg-teal-700 hover:bg-teal-800 px-6 py-3 rounded-md shadow-md text-white transition">
               Create Your Account
             </Button>
           </Link>

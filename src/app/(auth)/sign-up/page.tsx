@@ -78,7 +78,7 @@ const Page = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black flex items-center justify-center px-4 py-8">
-      <div className="w-full max-w-4xl bg-gray-900 rounded-xl m-3 shadow-2xl flex flex-col md:flex-row-reverse overflow-hidden z-10">
+      <div className="w-full max-w-4xl bg-gray-950/70 rounded-xl m-3 shadow-2xl border border-gray-800 flex flex-col md:flex-row-reverse overflow-hidden z-10">
 
         {/* Right side: Form Section */}
         <motion.div
@@ -210,12 +210,12 @@ const Page = () => {
           transition={{ delay: 0.2, duration: 0.6 }}
           className="hidden md:flex md:w-2/5 relative items-center justify-center p-8 text-gray-200"
           style={{
-            backgroundImage: "url('/images/mount.jpg')",
+            backgroundImage: "url('/images/space.jpeg')",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
         >
-          <div className="absolute inset-0 bg-black/30"></div>
+          <div className="absolute inset-0 bg-black/40"></div>
           <div className="relative z-10 text-center space-y-3 max-w-xs">
             <h2 className="text-3xl font-bold text-gray-200">Hello, Guest!</h2>
             <p className="text-base leading-relaxed text-gray-300">
