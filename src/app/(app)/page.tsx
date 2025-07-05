@@ -72,7 +72,7 @@ function Page() {
                 custom={0}
               >
                 Step Into the World of{" "}
-                <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500">
+                <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-400 to-green-400">
                   Anonymous Messages
                 </span>
               </motion.h1>
@@ -94,7 +94,7 @@ function Page() {
                 animate="visible"
                 custom={2}
               >
-                <div className="relative inline-block mt-8 rounded-full p-[2px] bg-gradient-to-r from-indigo-500 to-cyan-500 shadow-[0_0_16px_#4fd1c5]">
+                <div className="relative inline-block mt-8 rounded-full p-[2px] bg-gradient-to-r from-indigo-500 via text-teal-700 to-cyan-500 shadow-[0_0_16px_#4fd1c5]">
                   <Button
                     onClick={handleRedirect}
                     className="px-7 py-4 rounded-full text-base font-semibold text-white bg-black shadow-2xs transition-all duration-300 hover:scale-[1.03] active:scale-95"
@@ -123,7 +123,7 @@ function Page() {
                       animate="visible"
                       className="w-full"
                     >
-                      <Card className="relative group w-full bg-gray-950 border border-gray-800 rounded-2xl shadow-md hover:shadow-[0_0_25px_#7c5fff55] hover:border-[#7c5fff] hover:scale-[1.02] transition-all duration-300">
+                      <Card className="relative group w-full bg-gray-950 border border-gray-800 rounded-2xl shadow-md hover:shadow-[0_0_25px_#7c5fff55] hover:border-indigo-400 hover:scale-[1.02] transition-all duration-300">
                         {/* Soft floating quote icon */}
                         <div className="absolute top-2 right-3 text-5xl text-gray-800 group-hover:text-gray-700 transition duration-300 pointer-events-none select-none">
                           “
