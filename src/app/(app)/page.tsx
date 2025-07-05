@@ -171,7 +171,7 @@ function Page() {
               variants={itemVariants}
             >
               <Users className="w-8 h-8 text-purple-500" />
-              <h2 className=" sm:text-2xl text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent drop-shadow-sm">
+              <h2 className=" text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent drop-shadow-sm">
                 Who Is It For?
               </h2>
             </motion.div>
@@ -186,20 +186,20 @@ function Page() {
 
             {/* Why Mystery Message */}
             <motion.section
-              className="max-w-5xl mx-auto text-center mb-28 px-4 md:px-0"
+              className="max-w-5xl text-center mb-28 px-1 md:px-0"
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               variants={containerVariants}
             >
             <motion.div
-              className="flex items-center justify-center gap-2 mb-6"
+              className="flex items-center justify-center gap-1 md:gap-2 mb-6"
               variants={itemVariants}
             >
               <div >
                 <ShieldCheck className="w-9 h-9 text-cyan-400" />
               </div>
-              <h2 className="sm:text-2xl text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent leading-snug">
+              <h2 className=" text-2xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent leading-snug">
                 Why Mystery Message?
               </h2>
             </motion.div>
