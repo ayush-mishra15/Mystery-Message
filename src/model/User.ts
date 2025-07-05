@@ -24,8 +24,6 @@ export interface User extends Document{ // here we define typescript  #yaha humn
     username: string;
     email: string;
     password: string;
-    verifyCode: string;
-    verifyCodeExpiry: Date;
     isVerified: boolean;
     isAcceptingMessages: boolean;
     messages: Message[]
@@ -52,19 +50,9 @@ const UserSchema: Schema<User> = new mongoose.Schema({
         required: [true,"Password  is required"],
     },
 
-    verifyCode: {
-        type: String,
-        required: [true,"Verify Code is required"],
-    },
-
-    verifyCodeExpiry: {
-        type: Date,
-        required: [true,"Verify Code Expiry is required"],
-    },
-
     isVerified: {
         type: Boolean,
-        default: false,
+        default: true,
     },
 
     isAcceptingMessages: {
