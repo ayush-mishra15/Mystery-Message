@@ -97,7 +97,7 @@ function Page() {
                 <div className="relative inline-block mt-8 rounded-full p-[2px] bg-gradient-to-r from-indigo-500 via text-teal-700 to-cyan-500 shadow-[0_0_16px_#4fd1c5]">
                   <Button
                     onClick={handleRedirect}
-                    className="px-7 py-4 rounded-full text-base font-semibold text-white bg-black shadow-2xs transition-all duration-300 hover:scale-[1.03] active:scale-95"
+                    className="px-7 py-4 rounded-full text-base font-semibold text-gray-100 bg-black shadow-2xs transition-all duration-300 hover:scale-[1.03] active:scale-95"
                   >
                     Get Started
                   </Button>
@@ -171,7 +171,7 @@ function Page() {
               variants={itemVariants}
             >
               <Users className="w-8 h-8 text-purple-500" />
-              <h2 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent drop-shadow-sm">
+              <h2 className=" sm:text-2xl text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent drop-shadow-sm">
                 Who Is It For?
               </h2>
             </motion.div>
@@ -193,13 +193,13 @@ function Page() {
               variants={containerVariants}
             >
             <motion.div
-              className="flex items-center justify-center gap-3 mb-6"
+              className="flex items-center justify-center gap-2 mb-6"
               variants={itemVariants}
             >
               <div >
-                <ShieldCheck className="w-9 h-8 text-cyan-400" />
+                <ShieldCheck className="w-9 h-9 text-cyan-400" />
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent leading-snug">
+              <h2 className="sm:text-2xl text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent leading-snug">
                 Why Mystery Message?
               </h2>
             </motion.div>
